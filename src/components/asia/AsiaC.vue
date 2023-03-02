@@ -1,6 +1,10 @@
 <template>
     <div>
       <h1 class="main_heading">Welcome to Asia</h1>
+      <img v-if="selectedRoute === '/asia/india'" href="#" class="flag" width="270" height="150" src="https://t3.ftcdn.net/jpg/00/42/09/98/360_F_42099891_6Sz9g70EoF2AQhogDZiFE9UQ2ncan1Pk.jpg" alt="Indian Flag">
+      <img v-if="selectedRoute === '/asia/russia'" href="#" class="flag" width="270" height="150" src="https://www.advantour.com/russia/images/symbolics/russia-flag.jpg" alt="Russian Flag">
+      <img v-if="selectedRoute === '/asia/china'" href="#" class="flag" width="270" height="150" src="https://static.vecteezy.com/system/resources/thumbnails/001/792/386/original/china-flag-loop-free-video.jpg" alt="Chinese Flag">
+    
       <nav>
         <ul>
           <li>
@@ -9,26 +13,114 @@
             <router-link to="/asia/bollywood"><button>Bollywood</button></router-link>
             <router-link to="/asia/murders"><button>Crime</button></router-link>
 
+            <div id="time_container">
+              <p v-if="selectedRoute === '/asia/india'" id='time'>{{ time }}</p>
+              <p v-if="selectedRoute === '/asia/russia'" id='time'>{{ time }}</p>
+              <p v-if="selectedRoute === '/asia/china'" id='time'>{{ time }}</p>
+            </div>
+
           </li>
         </ul>
       </nav>
       <router-view></router-view>
+      <p style="text-align:center">Currently available Countries are <strong>India, Russia, China</strong></p>
+      <AsiaMap/>
     </div>
   </template>
   
   <script>
-  export default {
-    name: 'AsiaC',
-   
+import AsiaMap from './AsiaMap.vue';
+
+export default {
+  name: "AsiaC",
+  components: { AsiaMap },
+  data() {
+    return {
+      selectedRoute: '',
+      time: '',
+      intervalId: null
+    }
+  },
+  watch: {
+    '$route'(to) {
+      this.selectedRoute = to.path;
+      this.updateTime();
+    }
+  },
+  mounted() {
+    this.updateTime();
+  },
+  beforeDestroy() {
+    clearInterval(this.intervalId);
+  },
+  methods: {
+    updateTime() {
+      const route = this.$route.path;
+      if (route === '/asia/india') {
+        clearInterval(this.intervalId);
+        const updateFn = () => {
+          const date = new Date();
+          const options = { timeZone: 'Asia/Kolkata', hour12: true };
+          this.time = date.toLocaleString('en-US', options);
+        };
+        updateFn(); // Update immediately
+        this.intervalId = setInterval(updateFn, 1000);
+      } else if (route === '/asia/russia') {
+        clearInterval(this.intervalId);
+        const updateFn = () => {
+          const date = new Date();
+          const options = { timeZone: 'Europe/Moscow', hour12: true };
+          this.time = date.toLocaleString('en-US', options);
+        };
+        updateFn(); // Update immediately
+        this.intervalId = setInterval(updateFn, 1000);
+      } else if (route === '/asia/china') {
+        clearInterval(this.intervalId);
+        const updateFn = () => {
+          const date = new Date();
+          const options = { timeZone: 'Asia/Shanghai', hour12: true };
+          this.time = date.toLocaleString('en-US', options);
+        };
+        updateFn(); // Update immediately
+        this.intervalId = setInterval(updateFn, 1000);
+      } else {
+        this.time = '';
+        clearInterval(this.intervalId);
+      }
+    }
   }
+}
   </script>
   
   <style scoped>
+  #time_container {
+    position: absolute;
+    right: 0;
+  }
+  
+  #time_container p {
+    text-align: right;
+    padding: 10px;
+    color: #fff;
+    font-size: 20px;
+    margin-top: -15%;
+
+  }
   .main_heading{
     text-align: center;
     margin-top: 50px;
     font-size: 100px;
   }
+  
+  
+  .flag{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width:270px;
+    max-height:150px;
+  }
+
   nav{
     background-color: #333;
     overflow: hidden;
