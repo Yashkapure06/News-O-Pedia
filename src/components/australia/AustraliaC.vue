@@ -1,6 +1,9 @@
 <template>
     <div>
       <h1 class="main_heading">Welcome to Australia</h1>
+      <img v-if="selectedRoute === '/australia/western-australia'" href="#" class="flag" width="270" height="150" src="https://i.pinimg.com/originals/30/47/3f/30473f08ede561b8b8c7953078127d31.jpg" alt="Brazil Flag">
+      <img v-if="selectedRoute === '/australia/queensland'" href="#" class="flag" width="270" height="150" src="https://i.pinimg.com/originals/30/47/3f/30473f08ede561b8b8c7953078127d31.jpg" alt="Argentina Flag">
+    
       <nav>
         <ul>
           <li>
@@ -11,15 +14,29 @@
           </li>
         </ul>
       </nav>
-      <router-view></router-view>
+      <router-view :selectedRoute="selectedRoute"></router-view>
+      <p style="text-align:center">Currently Available Countries: <strong>QueensLand, western-australia</strong></p>
+      <AustraliaMap/>
     </div>
   </template>
   
   <script>
+import AustraliaMap from './AustraliaMap.vue';
+
   export default {
-    name: 'AustraliaC',
-   
+    name: "AustraliaC",
+    components: { AustraliaMap },    
+    data() {
+    return {
+      selectedRoute: ''
+    }
+  },
+  watch: {
+    '$route'(to) {
+      this.selectedRoute = to.path;
+    }
   }
+}
   </script>
   
   <style scoped>
@@ -27,6 +44,15 @@
     text-align: center;
     margin-top: 50px;
     font-size: 100px;
+  }
+
+
+  .flag{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width:270px;
+    max-height:150px;
   }
   nav{
     background-color: #333;
