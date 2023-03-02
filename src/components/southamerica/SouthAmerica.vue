@@ -1,6 +1,9 @@
 <template>
   <div>
     <h1 class="main_heading">Welcome to South America</h1>
+    <img v-if="selectedRoute === '/southamerica/brazil'" href="#" class="flag" width="270" height="150" src="https://static.vecteezy.com/system/resources/thumbnails/001/803/248/original/brazil-flag-loop-free-video.jpg" alt="Brazil Flag">
+    <img v-if="selectedRoute === '/southamerica/argentina'" href="#" class="flag" width="270" height="150" src="https://t3.ftcdn.net/jpg/00/42/50/34/360_F_42503487_5R2vtjtXNYYomm3qd6ZpN9jSPjj3r0pm.jpg" alt="Argentina Flag">
+    
     <nav>
       <ul>
         <li>
@@ -11,21 +14,42 @@
         </li>
       </ul>
     </nav>
-    <router-view></router-view>
-
-
+    <router-view :selectedRoute="selectedRoute"></router-view>
+    <p style="text-align:center">Currently Available Countries: <strong>Brazil, Argentina</strong></p>
+    <SouthAmericaMap/>
   </div>
 </template>
 <script>
+import SouthAmericaMap from './SouthAmericaMap.vue';
+
 export default {
-  name: 'SouthAmerica',
+    name: "SouthAmerica",
+    components: { SouthAmericaMap },
+    
+    data() {
+    return {
+      selectedRoute: ''
+    }
+  },
+  watch: {
+    '$route'(to) {
+      this.selectedRoute = to.path;
+    }
+  }
 }
 </script>
 <style scoped>
 .main_heading {
   text-align: center;
-  margin-top: 50px;
   font-size: 100px;
+}
+
+.flag{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width:270px;
+  max-height:150px;
 }
 
 nav {
@@ -64,13 +88,6 @@ button:hover {
   cursor: pointer;
 }
 
-img {
-  width: 100%;
-  height: 100%;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 500px;
-  margin-top: 25px;
-}
 
 .continent_name {
   position: absolute;
