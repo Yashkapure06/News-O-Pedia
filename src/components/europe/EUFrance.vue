@@ -1,7 +1,7 @@
 <template>
     <div>
         <section class="top_business">
-            <h1 id="headline_text">Top Business Headlines</h1>
+            <h1 id="headline_text">Top France Headlines</h1>
             <ul>
                 <li class="bigbox" v-for="(article, index) in articles" :key="index">
                     <h2>{{ article.title }}</h2>
@@ -13,10 +13,10 @@
         </section>
 
         <section class="right-side-bar">
-            <h1 id="headline_text">Top Sports Headlines</h1>
+            <h1 id="headline_text">Top Spain Headlines</h1>
             <ul>
                 <li class="timebox-side" v-for="(sportsArticle, index) in sportsArticles" :key="index">
-                    <router-link class="links" to="/europe/france/sports"><h5>{{ sportsArticle.title }}</h5></router-link>
+                    <router-link class="links" to="/europe/spain"><h5>{{ sportsArticle.title }}</h5></router-link>
                     <img :src="sportsArticle.urlToImage" alt="Article image">
                 </li>
             </ul>
@@ -29,7 +29,7 @@ import axios from 'axios';
 
 
 export default {
-    name: 'AfBusiness',
+    name: 'EUFrance',
     data() {
         return {
             articles: [],
@@ -46,7 +46,7 @@ export default {
 
         newsApi.get('https://newsapi.org/v2/everything', {
             params: {
-                q: 'europes top business',
+                q: 'top business of france',
                 from: '2023-02-18',
                 to: '2023-02-18',
                 sortBy: 'popularity',
@@ -54,7 +54,7 @@ export default {
             }
         })
         .then(response => {
-            this.articles = response.data.articles.slice(0, 6);
+            this.articles = response.data.articles.slice(0, 10);
         })
         .catch(error => {
             console.log(error);
@@ -62,7 +62,7 @@ export default {
 
         newsApi.get('https://newsapi.org/v2/everything', {
             params: {
-                q: 'top european sports',
+                q: 'top business of spain',
                 from: '2023-02-18',
                 to: '2023-02-18',
                 sortBy: 'popularity',
