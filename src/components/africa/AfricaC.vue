@@ -1,6 +1,9 @@
 <template>
-    <div>
-      <h1 class="main_heading">Welcome to Afriac</h1>
+  <div>
+    <h1 class="main_heading">Welcome to Africa</h1>
+    <img v-if="selectedRoute === '/africa/south-africa'" href="#" class="flag" width="270" height="150" src="../../assets/southafrica-flag.jpeg" alt="South Africa Flag">
+    <img v-if="selectedRoute === '/africa/egypt'" href="#" class="flag" width="270" height="150" src="https://t4.ftcdn.net/jpg/04/89/76/31/360_F_489763148_dYk2Yh4llD4zZWC8kfhx84rXiA3HJvzO.jpg" alt="Egypt Flag">
+    
       <nav>
         <ul>
           <li>
@@ -12,14 +15,28 @@
         </ul>
       </nav>
       <router-view></router-view>
+      <p style="text-align:center">Currently Avilable Countries: <strong>Egypt, South Africa</strong></p>
+      <AfricaMap/>
     </div>
   </template>
   
   <script>
+import AfricaMap from './AfricaMap.vue';
+
   export default {
-    name: 'AfricaC',
-   
+    name: "AfricaC",
+    components: { AfricaMap },
+    data() {
+    return {
+      selectedRoute: ''
+    }
+  },
+  watch: {
+    '$route'(to) {
+      this.selectedRoute = to.path;
+    }
   }
+}
   </script>
   
   <style scoped>
@@ -28,6 +45,15 @@
     margin-top: 50px;
     font-size: 100px;
   }
+  
+  .flag{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width:270px;
+    max-height:150px;
+  }
+
   nav{
     background-color: #333;
     overflow: hidden;
@@ -58,9 +84,6 @@
   button:hover{
     background-color: #3e8e41;
     cursor: pointer;
-  }
-  ul li .active{
-    background-color: #111;
   }
   </style>
   
