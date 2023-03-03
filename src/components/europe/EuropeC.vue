@@ -11,6 +11,11 @@
             <router-link to="/europe/sports"><button>Sports</button></router-link>
             <router-link to="/europe/hollywood"><button>Entertainment</button></router-link>
             <router-link to="/europe/murders"><button>Crimes</button></router-link>
+
+            <div id="time_container">
+              <button v-if="selectedRoute === '/europe/spain'" id='time'>{{ time }}</button>
+              <button v-if="selectedRoute === '/europe/france'" id='time'>{{ time }}</button>
+            </div>
           </li>
         </ul>
       </nav>
@@ -28,18 +33,70 @@ import EuropeMap from './EuropeMap.vue';
     components: { EuropeMap },
     data() {
     return {
-      selectedRoute: ''
+      selectedRoute: '',
+      time: '',
+      intervalId: null
     }
   },
   watch: {
     '$route'(to) {
       this.selectedRoute = to.path;
+      this.updateTime();
+    }
+  },
+  mounted() {
+    this.updateTime();
+  },
+  beforeDestroy() {
+    clearInterval(this.intervalId);
+  },
+  methods: {
+    updateTime() {
+      const route = this.$route.path;
+      
+      if (route === '/europe/spain') {
+        clearInterval(this.intervalId);
+        const updateFn = () => {
+          const date = new Date();
+          const options = { timeZone: 'Europe/Madrid', hour12: true };
+          this.time = date.toLocaleString('en-US', options);
+        };
+        updateFn();
+        this.intervalId = setInterval(updateFn, 1000);
+      } else if (route === '/europe/france') {
+        clearInterval(this.intervalId);
+        const updateFn = () => {
+          const date = new Date();
+          const options = { timeZone: 'Europe/Paris', hour12: true };
+          this.time = date.toLocaleString('en-US', options);
+        };
+        updateFn();
+        this.intervalId = setInterval(updateFn, 1000);
+      }else {
+        this.time = '';
+        clearInterval(this.intervalId);
+      }
     }
   }
 }
   </script>
   
   <style scoped>
+  
+  #time_container button{
+    position: absolute;
+    right: 0;
+    top: 61.5%;
+    transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+  }
   .main_heading{
     text-align: center;
     font-size: 100px;
