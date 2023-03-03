@@ -14,9 +14,9 @@
             <router-link to="/asia/murders"><button>Crime</button></router-link>
 
             <div id="time_container">
-              <p v-if="selectedRoute === '/asia/india'" id='time'>{{ time }}</p>
-              <p v-if="selectedRoute === '/asia/russia'" id='time'>{{ time }}</p>
-              <p v-if="selectedRoute === '/asia/china'" id='time'>{{ time }}</p>
+              <button v-if="selectedRoute === '/asia/india'" id='time'>{{ time }}</button>
+              <button v-if="selectedRoute === '/asia/russia'" id='time'>{{ time }}</button>
+              <button v-if="selectedRoute === '/asia/china'" id='time'>{{ time }}</button>
             </div>
 
           </li>
@@ -56,6 +56,7 @@ export default {
   methods: {
     updateTime() {
       const route = this.$route.path;
+      
       if (route === '/asia/india') {
         clearInterval(this.intervalId);
         const updateFn = () => {
@@ -63,7 +64,7 @@ export default {
           const options = { timeZone: 'Asia/Kolkata', hour12: true };
           this.time = date.toLocaleString('en-US', options);
         };
-        updateFn(); // Update immediately
+        updateFn();
         this.intervalId = setInterval(updateFn, 1000);
       } else if (route === '/asia/russia') {
         clearInterval(this.intervalId);
@@ -72,7 +73,7 @@ export default {
           const options = { timeZone: 'Europe/Moscow', hour12: true };
           this.time = date.toLocaleString('en-US', options);
         };
-        updateFn(); // Update immediately
+        updateFn();
         this.intervalId = setInterval(updateFn, 1000);
       } else if (route === '/asia/china') {
         clearInterval(this.intervalId);
@@ -81,7 +82,7 @@ export default {
           const options = { timeZone: 'Asia/Shanghai', hour12: true };
           this.time = date.toLocaleString('en-US', options);
         };
-        updateFn(); // Update immediately
+        updateFn();
         this.intervalId = setInterval(updateFn, 1000);
       } else {
         this.time = '';
@@ -93,19 +94,21 @@ export default {
   </script>
   
   <style scoped>
-  #time_container {
+  #time_container button{
     position: absolute;
     right: 0;
+    top: 61.5%;
+    transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
   }
   
-  #time_container p {
-    text-align: right;
-    padding: 10px;
-    color: #fff;
-    font-size: 20px;
-    margin-top: -15%;
-
-  }
   .main_heading{
     text-align: center;
     margin-top: 50px;
