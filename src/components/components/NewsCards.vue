@@ -28,7 +28,7 @@ export default {
       params: {
         country: 'in',
         category: 'sports',
-        apiKey: 'b215f9c99b1448159bfec166ffc88898',
+        apiKey: '86f6b2f4ad2c4cb9983fe5909b911440',
         pageSize: 3 // Only fetch 6 articles
       }
     })
