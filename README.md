@@ -22,3 +22,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+<!-- from b215f9c99b1448159bfec166ffc88898 to latest yashk.comp -->
