@@ -44,7 +44,7 @@ export default {
         const newsApi = axios.create({
             
             params: {
-                apiKey: 'b215f9c99b1448159bfec166ffc88898'
+                apiKey: '86f6b2f4ad2c4cb9983fe5909b911440'
             }
         });
 
@@ -54,7 +54,7 @@ export default {
                 from: '2023-02-18',
                 to: '2023-02-18',
                 sortBy: 'popularity',
-                apiKey: 'b215f9c99b1448159bfec166ffc88898',
+                apiKey: '86f6b2f4ad2c4cb9983fe5909b911440',
             }
         })
             .then(response => {
@@ -72,7 +72,7 @@ export default {
         from: '2023-02-18',
         to: '2023-02-18',
         sortBy: 'popularity',
-        apiKey: 'b215f9c99b1448159bfec166ffc88898',
+        apiKey: '86f6b2f4ad2c4cb9983fe5909b911440',
       },
     })
       .then(response => {
