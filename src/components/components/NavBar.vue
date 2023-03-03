@@ -53,7 +53,7 @@
             .then((response) => {
               this.articles = response.data.articles.slice(0, 10);
               this.showResults = true;
-              this.$router.push({ path: "/search", query: { q: this.searchQuery } });
+              this.$router.push({ path: "/search", query: { q: this.searchQuery.toLocaleLowerCase() } });
             })
             .catch((error) => {
               console.log(error);
