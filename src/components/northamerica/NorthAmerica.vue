@@ -11,7 +11,10 @@
           <router-link to="/northamerica/sports"><button>Sports</button></router-link>
           <router-link to="/northamerica/hollywood"><button>Entertainment</button></router-link>
           <router-link to="/northamerica/murders"><button>Crimes</button></router-link>
-
+          <div id="time_container">
+            <button v-if="selectedRoute === '/northamerica/usa'" id='time'>{{ time }}</button>
+            <button v-if="selectedRoute === '/northamerica/canada'" id='time'>{{ time }}</button>
+          </div>
         </li>
       </ul>
     </nav>
@@ -28,21 +31,72 @@ export default {
     name: "NorthAmerica",
     components: { NorthAmericaMap },
     
-    
     data() {
     return {
-      selectedRoute: ''
+      selectedRoute: '',
+      time: '',
+      intervalId: null
     }
   },
   watch: {
     '$route'(to) {
       this.selectedRoute = to.path;
+      this.updateTime();
+    }
+  },
+  mounted() {
+    this.updateTime();
+  },
+  beforeDestroy() {
+    clearInterval(this.intervalId);
+  },
+  methods: {
+    updateTime() {
+      const route = this.$route.path;
+      
+      if (route === '/northamerica/usa') {
+        clearInterval(this.intervalId);
+        const updateFn = () => {
+          const date = new Date();
+          const options = { timeZone: 'America/New_York', hour12: true };
+          this.time = date.toLocaleString('en-US', options);
+        };
+        updateFn();
+        this.intervalId = setInterval(updateFn, 1000);
+      } else if (route === '/northamerica/canada') {
+        clearInterval(this.intervalId);
+        const updateFn = () => {
+          const date = new Date();
+          const options = { timeZone: 'America/Toronto', hour12: true };
+          this.time = date.toLocaleString('en-US', options);
+        };
+        updateFn();
+        this.intervalId = setInterval(updateFn, 1000);
+      }else {
+        this.time = '';
+        clearInterval(this.intervalId);
+      }
     }
   }
 }
 </script>
 
 <style scoped>
+
+#time_container button{
+  position: absolute;
+  right: 0;
+  top: 61.5%;
+  transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
 .main_heading{
   text-align: center;
   margin-top: 50px;
