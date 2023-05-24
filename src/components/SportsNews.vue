@@ -44,7 +44,7 @@ export default {
         const newsApi = axios.create({
             baseURL: 'https://newsapi.org/v2',
             params: {
-                apiKey: '86f6b2f4ad2c4cb9983fe5909b911440'
+                apiKey: 'c69289c49257482c8777a01afdb0e22a'
             }
         });
 

@@ -44,17 +44,17 @@ export default {
         const newsApi = axios.create({
             
             params: {
-                apiKey: '86f6b2f4ad2c4cb9983fe5909b911440'
+                apiKey: 'c69289c49257482c8777a01afdb0e22a'
             }
         });
 
         newsApi.get('https://newsapi.org/v2/everything', {
             params: {
                 q: 'tesla',
-                from: '2023-02-18',
+                from: '2023-04-24',
                 to: '2023-02-18',
                 sortBy: 'popularity',
-                apiKey: '86f6b2f4ad2c4cb9983fe5909b911440',
+                apiKey: 'c69289c49257482c8777a01afdb0e22a',
             }
         })
             .then(response => {
@@ -69,10 +69,10 @@ export default {
     axios.get('https://newsapi.org/v2/everything', {
       params: {
         q: 'bitcoin',
-        from: '2023-02-18',
+        from: '2023-04-24',
         to: '2023-02-18',
         sortBy: 'popularity',
-        apiKey: '86f6b2f4ad2c4cb9983fe5909b911440',
+        apiKey: 'c69289c49257482c8777a01afdb0e22a',
       },
     })
       .then(response => {

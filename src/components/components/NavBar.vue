@@ -47,7 +47,7 @@
     methods: {
       searchNews() {
         if (this.searchQuery) {
-          const url = `https://newsapi.org/v2/everything?q=${this.searchQuery}&apiKey=86f6b2f4ad2c4cb9983fe5909b911440`;
+          const url = `https://newsapi.org/v2/everything?q=${this.searchQuery}&apiKey=c69289c49257482c8777a01afdb0e22a`;
           axios
             .get(url)
             .then((response) => {
