@@ -274,6 +274,11 @@ const router = new VueRouter({
   routes,
   linkExactActiveClass: "active",
 });
+// global routing guards
+router.beforeEach((to, from, next) => {
+  window.scrollTo(0, 0);
+  next();
+});
 
 new Vue({
   router,
